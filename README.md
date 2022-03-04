@@ -1,4 +1,4 @@
-# Simple rect serach
+# Simple react serach/filter
 
 This Boilerplate is for filter / search datas in array[].
 
