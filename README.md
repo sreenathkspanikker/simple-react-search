@@ -1,6 +1,6 @@
 # Simple react serach/filter
 
-This Boilerplate is for filter / search datas in array[].
+This Boilerplate is for filter/search datas in the array[].
 
 ## Available Scripts
 
