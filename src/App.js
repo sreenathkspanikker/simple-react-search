@@ -1,23 +1,43 @@
-import logo from './logo.svg';
+import React, {useState, useEffect} from 'react'
 import './App.css';
 
 function App() {
+  const [data, setData] = useState([])
+  const [allData, setAlldata] = useState([])
+
+  useEffect(() => {
+    let isLoad = true
+
+    if (isLoad) {
+      fetch('https://restcountries.com/v3.1/all')
+        .then(response => response.json())
+        .then(value => {
+          setData(value) 
+          setAlldata(value)
+        });
+    }
+
+    return () => {
+      isLoad = false
+    }
+  }, [])
+  
+  const handleChange = e => {
+    const value = e.target.value
+    setData(value.length > 0 ? data.filter(i => i.name.common.toLowerCase().match(value)) : allData)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Sample search</h1>
+      <input type="search" placeholder='Search by keyword' onChange={e=> handleChange(e)}/>
+      <ul>
+        {data?.map((items, idx) => {
+          return (
+            <li key={idx}>{items.name.common},</li>
+          )
+        })}
+      </ul>
     </div>
   );
 }
